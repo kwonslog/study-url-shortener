@@ -1,0 +1,11 @@
+### 단축 URL 요청
+POST http://localhost:8080/shorten
+Content-Type: application/json
+
+{
+  "url": "https://www.naver.com"
+}
+
+
+### 단축 code 값으로 요청시 해당 페이지로 리다이렉션
+GET http://localhost:8080/jxED5H

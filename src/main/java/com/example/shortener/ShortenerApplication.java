@@ -1,4 +1,4 @@
-package com.example.shortener.shortener;
+package com.example.shortener;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
