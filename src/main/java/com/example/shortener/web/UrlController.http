@@ -9,3 +9,25 @@ Content-Type: application/json
 
 ### 단축 code 값으로 요청시 해당 페이지로 리다이렉션
 GET http://localhost:8080/jxED5H
+
+
+### 엔드포인트 목록
+GET http://localhost:8080/actuator
+
+
+### prometheus 체크
+GET http://localhost:8080/actuator/prometheus
+
+### prometheus 체크
+POST http://localhost:9090/-/reload
+
+
+### health 체크
+GET http://localhost:8080/actuator/health
+
+### info 체크
+GET http://localhost:8080/actuator/info
+
+
+### env 체크
+GET http://localhost:8080/actuator/env

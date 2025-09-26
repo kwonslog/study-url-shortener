@@ -1,0 +1,36 @@
+server:
+  port: 8080 # 서버 포트 8080 지정
+
+info:
+  app:
+    name: url-shortener
+    version: 1.0.0
+    description: "URL Shortener Service"
+
+management:
+  info:
+    env:
+      # /actuator/info 요청시 값이 비어 있어서 true 로 설정함.
+      #  보안상의 이유로 기본값이 false.
+      enabled: true
+  endpoints:
+    web:
+      exposure:
+        include: # 엔드포인트 노출 설정
+          - health # /actuator/health
+          - info # /actuator/info
+          - prometheus # /actuator/prometheus
+          - env
+  endpoint:
+    health:
+      show-details: "when_authorized" # /actuator/helth 호출시 인증된 사용자만 데이터 노출
+  metrics:
+    tags:
+      application: "url-shortener" # 수집된 지표를 구분하기 위한 식별값(다수의 서비스가 있다면 각각의 서비스를 구분하는 서비스명)
+    distribution:
+      percentiles-histogram: # 히스토그램은 요청 시간을 여러 구간(bucket)으로 나눠서 기록
+        http.server.requests: true
+      sla:
+        http.server.requests: 50ms,100ms,200ms,500ms,1s # 여러 구간(bucket) 의 기준값. 요청들을 이 구간에 따라 누적 카운팅
+
+
