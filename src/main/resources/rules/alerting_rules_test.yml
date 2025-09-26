@@ -1,0 +1,30 @@
+rule_files:
+  - "alerting_rules.yml"          # 규칙 파일 이름 (실제 경로 맞춰 수정)
+
+evaluation_interval: 5s     # 규칙 그룹 interval=5s 와 동일하게 맞춤
+
+tests:
+  - interval: 1s              # 1초 단위로 입력값 생성
+    input_series:
+      - series: 'http_server_requests_seconds_count{instance="localhost:8080", job="url-shortener"}'
+        # 1초마다 +100 증가 → 초당 100 RPS 가짜 트래픽
+        values: '0+100x100'   # 0부터 시작, 100초 동안 1초마다 100씩 증가
+    alert_rule_test:
+      - eval_time: 20s
+        alertname: HighLoadQPS
+        # alerting_rules 의 expr 조건을 보면 [30s] 라고 되어 있다.
+        # 그러니 최소 30s 부터 조건을 만족하기 때문에 20s 시점에는 아무런 값이 없다.
+        exp_alerts: []
+      - eval_time: 40s
+        alertname: HighLoadQPS
+        # 40s 시점에는 규칙의 조건을 30s 에 만족하고 이후 for 값에 의해 10초간 유지 된 상황이다.
+        # 그래서 아래와 같이 규칙 알림이 발생한다.
+        exp_alerts:
+          - exp_labels:
+              alertname: HighLoadQPS
+              severity: warning
+              instance: localhost:8080
+              job: url-shortener
+            exp_annotations:
+              summary: "High request rate detected"
+              description: "Request rate exceeded 50 RPS for 10 seconds on localhost:8080"
