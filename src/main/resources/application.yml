@@ -1,5 +1,9 @@
 server:
   port: 8080 # 서버 포트 8080 지정
+  tomcat:
+    mbeanregistry:
+      # tomcat 스레드/커넥션 지표 수집을 위한 설정 추가
+      enabled: true
 
 info:
   app:
@@ -8,6 +12,10 @@ info:
     description: "URL Shortener Service"
 
 management:
+  server:
+    # 포트를 지정하면 서비스를 위한 메인 서비스와 분리된 관리서버가 별도로 실행된다.
+    #  많은 트래픽이 발생하여 메인 서비스의 응답 처리가 힘들어 질 경우를 대비하여 분리하는 것을 권장.
+    port: 8081
   info:
     env:
       # /actuator/info 요청시 값이 비어 있어서 true 로 설정함.
@@ -33,4 +41,18 @@ management:
       sla:
         http.server.requests: 50ms,100ms,200ms,500ms,1s # 여러 구간(bucket) 의 기준값. 요청들을 이 구간에 따라 누적 카운팅
 
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/demo_db
+    username: demo_user
+    password: demo_pass
+    driver-class-name: org.postgresql.Driver
 
+  jpa:
+    hibernate:
+      ddl-auto: update   # 개발용: create, update, validate, none 중 선택
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+    show-sql: true       # SQL 쿼리를 콘솔에 출력
+    open-in-view: false  # 권장 옵션 (OSIV 비활성화)

@@ -1,7 +1,7 @@
 package com.example.shortener.app;
 
 import com.example.shortener.domain.UrlMapping;
-import com.example.shortener.infra.InMemoryUrlRepository;
+import com.example.shortener.domain.UrlRepository;
 import com.example.shortener.support.NotFoundException;
 import org.springframework.stereotype.Service;
 
@@ -11,12 +11,15 @@ import java.time.Instant;
 
 @Service
 public class UrlService {
-    private final InMemoryUrlRepository repo = new InMemoryUrlRepository();
+    private final UrlRepository repo;
     private final CodeGenerator generator = new CodeGenerator();
+
+    public UrlService(UrlRepository repo) {
+        this.repo = repo;
+    }
 
     public UrlMapping create(String originalUrl) {
         validateUrl(originalUrl);
-        // 간단: 충돌 시 재시도 최대 5회
         for (int i = 0; i < 5; i++) {
             String code = generator.generate(6);
             if (!repo.exists(code)) {
