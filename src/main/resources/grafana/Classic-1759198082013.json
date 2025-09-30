@@ -24,7 +24,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "dezhldsmp1hj4d"
+        "uid": "eezle3hcvyf40a"
       },
       "fieldConfig": {
         "defaults": {
@@ -142,7 +142,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "dezhldsmp1hj4d"
+            "uid": "eezle3hcvyf40a"
           },
           "editorMode": "code",
           "expr": "100 * (windows_memory_committed_bytes / windows_memory_commit_limit)",
@@ -155,7 +155,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "dezhldsmp1hj4d"
+            "uid": "eezle3hcvyf40a"
           },
           "editorMode": "code",
           "expr": "100 * (1 - (windows_memory_available_bytes / windows_memory_physical_total_bytes))",
@@ -172,7 +172,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "dezhldsmp1hj4d"
+        "uid": "eezle3hcvyf40a"
       },
       "fieldConfig": {
         "defaults": {
@@ -262,7 +262,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "dezhldsmp1hj4d"
+            "uid": "eezle3hcvyf40a"
           },
           "editorMode": "code",
           "expr": "sum(tomcat_threads_busy_threads)",
@@ -275,7 +275,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "dezhldsmp1hj4d"
+            "uid": "eezle3hcvyf40a"
           },
           "editorMode": "code",
           "expr": "sum(tomcat_threads_config_max_threads)",
@@ -292,7 +292,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "dezhldsmp1hj4d"
+        "uid": "eezle3hcvyf40a"
       },
       "fieldConfig": {
         "defaults": {
@@ -356,7 +356,7 @@
         "x": 0,
         "y": 8
       },
-      "id": 7,
+      "id": 9,
       "options": {
         "legend": {
           "calcs": [],
@@ -374,45 +374,19 @@
       "targets": [
         {
           "editorMode": "code",
-          "expr": "sum(tomcat_connections_current_connections)",
+          "expr": "sum(rate(http_server_requests_seconds_count[1m]))",
           "legendFormat": "__auto",
           "range": true,
-          "refId": "A"
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "dezhldsmp1hj4d"
-          },
-          "editorMode": "code",
-          "expr": "sum(tomcat_connections_keepalive_current_connections)",
-          "hide": false,
-          "instant": false,
-          "legendFormat": "__auto",
-          "range": true,
-          "refId": "B"
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "dezhldsmp1hj4d"
-          },
-          "editorMode": "code",
-          "expr": "sum(tomcat_connections_config_max_connections)",
-          "hide": false,
-          "instant": false,
-          "legendFormat": "__auto",
-          "range": true,
-          "refId": "C"
+          "refId": "RPS"
         }
       ],
-      "title": "톰캣 커넥션",
+      "title": "RPS",
       "type": "timeseries"
     },
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "dezhldsmp1hj4d"
+        "uid": "eezle3hcvyf40a"
       },
       "fieldConfig": {
         "defaults": {
@@ -504,24 +478,9 @@
       "type": "timeseries"
     },
     {
-      "gridPos": {
-        "h": 8,
-        "w": 12,
-        "x": 0,
-        "y": 16
-      },
-      "id": 1,
-      "libraryPanel": {
-        "name": "RPS",
-        "uid": "fezhqjr6td534e"
-      },
-      "title": "RPS",
-      "type": "library-panel-ref"
-    },
-    {
       "datasource": {
         "type": "prometheus",
-        "uid": "dezhldsmp1hj4d"
+        "uid": "eezle3hcvyf40a"
       },
       "fieldConfig": {
         "defaults": {
@@ -580,7 +539,127 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 7,
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 16
+      },
+      "id": 7,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "hideZeros": false,
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "12.2.0",
+      "targets": [
+        {
+          "editorMode": "code",
+          "expr": "sum(tomcat_connections_current_connections)",
+          "legendFormat": "__auto",
+          "range": true,
+          "refId": "A"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "eezle3hcvyf40a"
+          },
+          "editorMode": "code",
+          "expr": "sum(tomcat_connections_keepalive_current_connections)",
+          "hide": false,
+          "instant": false,
+          "legendFormat": "__auto",
+          "range": true,
+          "refId": "B"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "eezle3hcvyf40a"
+          },
+          "editorMode": "code",
+          "expr": "sum(tomcat_connections_config_max_connections)",
+          "hide": false,
+          "instant": false,
+          "legendFormat": "__auto",
+          "range": true,
+          "refId": "C"
+        }
+      ],
+      "title": "톰캣 커넥션",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "eezle3hcvyf40a"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "showValues": false,
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": 0
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
         "w": 12,
         "x": 12,
         "y": 16
@@ -615,7 +694,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "dezhldsmp1hj4d"
+        "uid": "eezle3hcvyf40a"
       },
       "fieldConfig": {
         "defaults": {
@@ -709,7 +788,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "dezhldsmp1hj4d"
+        "uid": "eezle3hcvyf40a"
       },
       "fieldConfig": {
         "defaults": {
@@ -768,10 +847,10 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 6,
+        "h": 7,
         "w": 12,
-        "x": 0,
-        "y": 31
+        "x": 12,
+        "y": 24
       },
       "id": 3,
       "options": {
@@ -816,5 +895,5 @@
   "timezone": "Asia/Seoul",
   "title": "first",
   "uid": "adds6ft",
-  "version": 23
+  "version": 2
 }
