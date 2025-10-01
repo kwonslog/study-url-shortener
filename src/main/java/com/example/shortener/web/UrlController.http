@@ -6,10 +6,12 @@ Content-Type: application/json
   "url": "https://www.naver.com"
 }
 
-
 ### 단축 code 값으로 요청시 해당 페이지로 리다이렉션
 GET http://localhost:8080/jxED5H
 
+
+### 제로 테스트 URL
+GET http://localhost:8080/healthz
 
 ### 엔드포인트 목록
 GET http://localhost:8081/actuator
@@ -17,6 +19,9 @@ GET http://localhost:8081/actuator
 
 ### prometheus 체크
 GET http://localhost:8081/actuator/prometheus
+
+###
+POST http://localhost:9090/api/v1/write
 
 ### prometheus 체크
 POST http://localhost:9090/-/reload
