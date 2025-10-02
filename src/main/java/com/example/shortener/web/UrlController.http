@@ -13,6 +13,10 @@ GET http://localhost:8080/jxED5H
 ### 제로 테스트 URL
 GET http://localhost:8080/healthz
 
+### DB 테스트 URL
+GET http://localhost:8080/dbping
+
+
 ### 엔드포인트 목록
 GET http://localhost:8081/actuator
 
